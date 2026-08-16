@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Error
+{% endblock %}
+
+{% block main %}
+    <div class="text-center p-5">
+        <h3 class="text-danger mb-4">¡Atención!</h3>
+        <div class="alert alert-danger" role="alert">
+            {{ bottom }}
+        </div>
+        <a href="/" class="btn btn-secondary mt-3">Volver al inicio</a>
+    </div>
+{% endblock %}

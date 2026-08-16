@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="h3">Panel de Control de Facturas</h1>
+                <p class="text-muted">Resumen del estado de las facturas y análisis de riesgo de fraude.</p>
+            </div>
+            <div class="col text-end">
+                <a href="/check" class="btn btn-danger">➕ Analizar Nueva Factura</a>            </div>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Proveedor</th>
+                                <th>Nº Factura</th>
+                                <th>Importe</th>
+                                <th>Cuenta Utilizada</th>
+                                <th>Estado del Análisis</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in invoices %}
+                                <tr>
+                                    <td>{{ invoice.id }}</td>
+                                    <td>{{ invoice.supplier_name }}</td>
+                                    <td>{{ invoice.invoice_number }}</td>
+                                    <td>{{ invoice.amount }} €</td>
+                                    <td><code>{{ invoice.account_used }}</code></td>
+                                    <td>
+                                        <span class="badge {% if 'Aprobada' in invoice.status %}bg-success{% elif 'Sospechosa' in invoice.status %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                                            {{ invoice.status }}
+                                        </span>
+                                    </td>
+                                    <td>{{ invoice.date }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">No hay facturas registradas todavía.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Comprobar Factura
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Comprobador de Facturas y Proveedores</h2>
+
+        <form action="/check" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre del Proveedor</label>
+                <input autocomplete="off" autofocus class="form-control" name="name" placeholder="Nombre de la empresa" type="text" required>
+            </div>
+            <div class="mb-3">
+                <label for="invoice_number" class="form-label">Número de Factura</label>
+                <input class="form-control" name="invoice_number" placeholder="Nº de factura" type="text" required>
+            </div>
+            <div class="mb-3">
+                <label for="amount" class="form-label">Importe</label>
+                <input class="form-control" name="amount" placeholder="0.00" type="number" step="0.01" required>
+            </div>
+            <div class="mb-3">
+                <label for="account_number" class="form-label">Número de Cuenta de la Factura</label>
+                <input class="form-control" name="account_number" placeholder="IBAN o número de cuenta" type="text" required>
+            </div>
+            <button class="btn btn-primary" type="submit">Comprobar Factura</button>
+        </form>
+    </div>
+{% endblock %}
+

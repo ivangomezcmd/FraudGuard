@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Proveedores
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Tus Proveedores Registrados</h2>
+
+        <form action="/add_supplier" method="post" class="mb-5 border p-4 rounded bg-light">
+            <h4>Añadir nuevo proveedor de confianza</h4>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre del Proveedor</label>
+                <input autocomplete="off" autofocus class="form-control" name="name" placeholder="Ej: Proveedor SL" type="text" required>
+                <div class="form-text text-muted">
+                    ℹ️ Nota: No se permiten dos proveedores con el mismo nombre exacto. Si coinciden, ponles un identificador diferente (ej. Pablo SL / Pablo S.A.).
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="account_number" class="form-label">Número de Cuenta / IBAN</label>
+                <input class="form-control" name="account_number" placeholder="Ej: ES1234567890" type="text" required>
+            </div>
+            <button class="btn btn-success" type="submit">Guardar Proveedor</button>
+        </form>
+
+        {% if suppliers %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre del Proveedor</th>
+                        <th>Número de Cuenta / IBAN</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for supplier in suppliers %}
+                        <tr>
+                            <td>{{ supplier.name }}</td>
+                            <td>{{ supplier.account_number }}</td>
+                            <td>
+                                <form action="/delete_supplier" method="post" style="display:inline;">
+                                    <input type="hidden" name="supplier_id" value="{{ supplier.id }}">
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ supplier.id }}">
+                                        Eliminar
+                                    </button>
+
+                                    <div class="modal fade" id="deleteModal{{ supplier.id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-danger text-white">
+                                                    <h5 class="modal-title">⚠️ Confirmar eliminación</h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-start py-4">
+                                                    <p class="mb-0">¿Estás seguro de que deseas eliminar a este proveedor de tus registros de confianza?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">No tienes ningún proveedor registrado todavía.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Alerta de Fraude
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5 text-center">
+        <div class="alert alert-danger p-5 rounded shadow" role="alert">
+            <h1 class="alert-heading display-4 mb-3">¡ALERTA DE FRAUDE!</h1>
+            <p class="lead">¡Cuidado! El número de cuenta para el proveedor <strong>{{ supplier }}</strong> NO coincide con el registro oficial.</p>
+            <hr>
+            <p class="mb-4">Podría tratarse de un ataque de suplantación o modificación de factura. No realice ninguna transferencia.</p>
+            <a href="/check" class="btn btn-danger btn-lg">Volver a comprobar</a>
+        </div>
+    </div>
+{% endblock %}

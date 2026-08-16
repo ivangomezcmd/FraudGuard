@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Analizar Factura
+{% endblock %}
+
+{% block main %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Analizar Factura</h2>
+                    <p class="text-muted text-center mb-4">Introduce los datos de la factura recibida para verificar si la cuenta bancaria coincide o hay duplicados.</p>
+
+                    <form action="/add_invoice" method="post">
+                        <div class="mb-3">
+                            <label for="supplier_id" class="form-label">Seleccionar Proveedor</label>
+                            <select class="form-select" name="supplier_id" id="supplier_id" required>
+                                <option disabled selected value="">-- Elige un proveedor --</option>
+                                {% for supplier in suppliers %}
+                                    <option value="{{ supplier.id }}">{{ supplier.name }} (Cuenta: {{ supplier.official_account }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="invoice_number" class="form-label">Número de Factura</label>
+                            <input class="form-control" name="invoice_number" id="invoice_number" placeholder="Ej. FAC-2026-001" type="text" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Importe (€)</label>
+                            <input class="form-control" name="amount" id="amount" placeholder="0.00" step="0.01" type="number" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="account_used" class="form-label">Cuenta Bancaria que indica la Factura</label>
+                            <input class="form-control" name="account_used" id="account_used" placeholder="Cuenta a la que piden pagar" type="text" required>
+                            <div class="form-text">Si esta cuenta no coincide con la oficial del proveedor, saltará la alerta de fraude.</div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-danger btn-lg" type="submit">Ejecutar Análisis de Fraude</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

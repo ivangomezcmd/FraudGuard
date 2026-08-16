@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Factura Segura
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5 text-center">
+        <div class="alert alert-success p-5 rounded shadow" role="alert">
+            <h1 class="alert-heading display-4 mb-3">¡Factura 100% Segura!</h1>
+            <p class="lead">El número de cuenta de la factura para el proveedor <strong>{{ supplier }}</strong> coincide exactamente con nuestro registro de confianza.</p>
+            <hr>
+            <p class="mb-4">Puedes proceder al pago con total tranquilidad.</p>
+            <a href="/check" class="btn btn-success btn-lg">Comprobar otra factura</a>
+        </div>
+    </div>
+{% endblock %}
